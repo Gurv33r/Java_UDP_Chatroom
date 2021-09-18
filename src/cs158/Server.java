@@ -33,6 +33,15 @@ public class Server{
                 String data = msgq.takeFirst();
                 String msg = data.split(" ")[0].replaceAll("-", " "), header = data.split(" ")[1]; // msg = json data, header = ip and pot
                 Message request = gson.fromJson(msg, Message.class), response;
+                boolean loggedin = chatroom.containsKey(request.getUsername());
+                if (!loggedin && request.getType()>0){ // in case server restarts but client is still active
+                    System.out.println(request.getUsername() + " was logged in before");
+                    String[] info = header.split("@");
+                    info[0] = info[0].substring(1);
+                    // store user in chatroom
+                    chatroom.put(request.getUsername(), info);
+                    System.out.println("Lobby = " + chatroom.keySet());
+                }
                 if (request.getType() == 0) { // join case
                     // save ip and port
                     String[] info = header.split("@");
@@ -43,6 +52,7 @@ public class Server{
                     chatroom.put(request.getUsername(), info);
                     // set reponse to a broadcast message from the server saying that <user> has entered the chat and display the lobby
                     response = new Message(0, "Server", request.getUsername() + " has entered the chat. Lobby = " + chatroom.keySet());
+                    System.out.println(response.getContent());
                 } else if (request.getType() == 2) { // exit case
                     // create response message letting user know they can leave
                     response = new Message(2, request.getUsername(), "ready to leave");
