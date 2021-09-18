@@ -55,8 +55,8 @@ public class Server{
                     );
                     //remove user from chatroom
                     chatroom.remove(request.getUsername());
-                    System.out.println(request.getUsername() + " has left the chat!\nLobby = " + chatroom.keySet());
                     response.setContent(request.getUsername() + " has left the chat!\nLobby = " + chatroom.keySet());
+                    System.out.println(response.getContent());
                     response.setType(1);
                 } else { // post case
                     System.out.println(request.getUsername() + " posted " + request.getContent());

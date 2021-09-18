@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 import com.google.gson.Gson;
 
+//simulates client. Prompts for username and then chat messages
 public class Client {
     public static boolean inChat = true, display;
     public static DatagramSocket socket;

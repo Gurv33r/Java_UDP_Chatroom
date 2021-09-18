@@ -3,7 +3,7 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 import com.google.gson.Gson;
-
+// clone of client used for testing purposes
 public class Main {
     public static boolean inChat = true, display;
     public static DatagramSocket socket;

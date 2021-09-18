@@ -17,7 +17,7 @@ public class Message {
         this.username = username;
         this.content = content;
     }
-    // getters and setters
+    // getters and setters. No need for setUsername() so not included
     public int getType(){
         return this.type;
     }
