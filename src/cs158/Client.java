@@ -66,8 +66,9 @@ public class Client {
                     if (response.getType() <= 1) { // 0,1 case = print content to System.out
                         System.out.println(response.getUsername() + ": " + response.getContent());
                     } else if (response.getType() == 2) { // 2 case = tell user they have exited the server
-                        System.out.println(response.getUsername() + " has left the server!");
+                        System.out.println(response.getUsername() + " has left the chat!");
                         inChat = false; // break while loop
+                        this.interrupt(); // stop the receiving thread
                     }
                     display = true;
                 }

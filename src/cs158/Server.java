@@ -37,11 +37,10 @@ public class Server{
                     // save ip and port
                     String[] info = header.split("@");
                     // display
-                    System.out.println(data + " has been sent from " + info[0] + " @ " + info[1]);
+                    System.out.println(msg + " has been sent from " + info[0] + " @ " + info[1]);
                     info[0] = info[0].substring(1);
                     // store user in chatroom
                     chatroom.put(request.getUsername(), info);
-                    System.out.println("There are " + chatroom.size() + " users in the chat");
                     // set reponse to a broadcast message from the server saying that <user> has entered the chat and display the lobby
                     response = new Message(0, "Server", request.getUsername() + " has entered the chat. Lobby = " + chatroom.keySet());
                 } else if (request.getType() == 2) { // exit case
@@ -56,7 +55,11 @@ public class Server{
                     );
                     //remove user from chatroom
                     chatroom.remove(request.getUsername());
+                    System.out.println(request.getUsername() + " has left the chat!\nLobby = " + chatroom.keySet());
+                    response.setContent(request.getUsername() + " has left the chat!\nLobby = " + chatroom.keySet());
+                    response.setType(1);
                 } else { // post case
+                    System.out.println(request.getUsername() + " posted " + request.getContent());
                     // create response that relays user's message to everyone else
                     response = request;
                 }
@@ -90,7 +93,6 @@ public class Server{
                         //sanitize input
                         data = data.substring(data.indexOf("{"), data.indexOf("}")+1);
                         data = data.replaceAll(" ", "-");
-                        System.out.println("Caught " + data);
                         msgq.put(data + " " + buffer.getAddress() + "@" + buffer.getPort());
                     }
                 }
