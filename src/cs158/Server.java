@@ -55,7 +55,7 @@ public class Server{
                     System.out.println(response.getContent());
                 } else if (request.getType() == 2) { // exit case
                     // create response message letting user know they can leave
-                    response = new Message(2, request.getUsername(), "ready to leave");
+                    response = new Message(2, "Server", request.getUsername() + " has left the chat!");
                     // send the message
                     String[] info = chatroom.get(request.getUsername());
                     Server.send(
@@ -65,7 +65,7 @@ public class Server{
                     );
                     //remove user from chatroom
                     chatroom.remove(request.getUsername());
-                    response.setContent(request.getUsername() + " has left the chat!\nLobby = " + chatroom.keySet());
+                    response.setContent(response.getContent() + "\nLobby = " + chatroom.keySet());
                     System.out.println(response.getContent());
                     response.setType(1);
                 } else { // post case

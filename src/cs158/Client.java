@@ -64,10 +64,10 @@ public class Client {
                     data = data.substring(data.indexOf('{'), data.indexOf('}')+1);
                     Message response = gson.fromJson(data, Message.class);
                     // output based on type of response
-                    if (response.getType() <= 1) { // 0,1 case = print content to System.out
-                        System.out.println(response.getUsername() + ": " + response.getContent());
-                    } else if (response.getType() == 2) { // 2 case = tell user they have exited the server
-                        System.out.println(response.getUsername() + " has left the chat!");
+                    // 0,1 case = print content to System.out
+                    System.out.println(response.getUsername() + ": " + response.getContent());
+                    // 2 case = tell user they have exited the server
+                    if (response.getType() == 2) {
                         inChat = false; // break while loop
                         this.interrupt(); // stop the receiving thread
                     }
